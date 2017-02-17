@@ -1,45 +1,69 @@
-import { Component } from '@angular/core';
-
+import { OnInit, Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { JkkData } from './../../providers/jkk-data';
 
-import { JkkData } from '../providers/jkk-data';
-
-
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
-  posts: any;
+	// the array of items found
+	items
 
-  constructor(
-    public navCtrl: NavController,
-    public http: Http
-    //public jkkData: JkkData
-    ) {
-      this.http.get(
-        'http://45.55.2.139/api/v1'
-      ).map(
-        response => response.json()
-      ).subscribe(
-        function(response) {
-          console.log("Success Response" + response)
-        }, function(error) {
-          console.log("Error happened" + error)
-        }, function() {
-          console.log("the subscription is completed")
-        }
-      );
-    }
+	// the update time
+	updated_at
 
-  ngOnInit() {
-    console.log("ngOnInit")
-//    this.JkkData.getData().subscribe(
-//    );
-  }
+	constructor( public navCtrl: NavController, private jkkData: JkkData) {
+		console.log("HomePage constructor");
+		// the array of items found
+		this.items = [];
 
+		// the update time
+		this.updated_at = ""
+
+	}
+
+	// init
+	ngOnInit() {
+		console.log("HomePage ngOnInit start");
+		this.jkkData.getData().subscribe(
+			(response) => {
+				// process the results..
+				console.log('search results', response.data);
+				this.items = response.data.list
+				this.updated_at = response.data.updated_at
+			}, (error) => {
+				// handle an error condition...
+				console.log("Error Searching: " + error)
+			}, () => {
+				// called when completely done processing
+				console.log("All Good With The Data");
+			}
+		);
+		console.log("HomePage ngOnInit end");
+	}
+
+	doRefresh(refresher) {
+		console.log('Begin async operation', refresher);
+		this.jkkData.getData().subscribe(
+			(response) => {
+				// process the results..
+				console.log('search results', response.data);
+				this.items = response.data.list
+				this.updated_at = response.data.updated_at
+			}, (error) => {
+				// handle an error condition...
+				console.log("Error Searching: " + error)
+			}, () => {
+				// called when completely done processing
+				console.log("All Good With The Data");
+			}
+		);
+		setTimeout(() => {
+			console.log('Async operation has ended');
+			refresher.complete();
+		}, 2000);
+	}
 }

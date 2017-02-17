@@ -1,18 +1,28 @@
 
-import { Injectable } from '@angular/core';
-import {Http} from 'angular2/http';
-import 'rxjs/add/operator/map';
+import {Injectable}     from '@angular/core';
+import {Http, URLSearchParams} from '@angular/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class JkkData {
 
-  constructor() {
-    console.log('Hello Jkkdata Provider');
-  }
+	private DOMAIN = "http://45.55.2.139";
+	private VERSION = "v1"
 
-  getData() {
-//    var url = "http://45.55.2.139/api/v1/list";
-//    var response = this.http.get(url).map(res => res.json());
-//    return response;
-  }
+	constructor(private http: Http) {
+		console.log("JkkData constructor");
+	}
+
+	getData() {
+		console.log("JkkData getData start.");
+		var url = this.DOMAIN + "/api/" + this.VERSION;
+
+		let params: URLSearchParams = new URLSearchParams();
+
+		var response = this.http.get(url + "/list", {
+			search: params
+		}).map(res => res.json());
+		console.log("JkkData getData end.");
+		return response;
+	}
 }

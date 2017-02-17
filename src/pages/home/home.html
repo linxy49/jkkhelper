@@ -5,13 +5,24 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content>
+		</ion-refresher-content>
+	</ion-refresher>
+
+	<ion-card>
+		<ion-card-header>Last updated at</ion-card-header>
+		<ion-item>{{updated_at}}</ion-item>
+	</ion-card>
+
+	<ion-card *ngFor="let item of items">
+		<ion-card-header>{{item.name}}</ion-card-header>
+		<ion-card-content>
+			<p>間取り<font style="float:right;">{{item.madori}}</font></p>
+			<p>床面積[m2]<font style="float:right;">{{item.yukamenseki}}</font></p>
+			<p>家賃[円]<font style="float:right;">{{item.yachin}}</font></p>
+			<p>共益費[円]<font style="float:right;">{{item.kyoekihi}}</font></p>
+			<p>募集戸数<font style="float:right;">{{item.kosu}}</font></p>
+		</ion-card-content>
+	</ion-card>
 </ion-content>
