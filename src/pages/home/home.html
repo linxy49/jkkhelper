@@ -16,7 +16,7 @@
 	</ion-card>
 
 	<ion-card *ngFor="let item of items">
-		<ion-card-header>{{item.name}}</ion-card-header>
+		<ion-card-header>{{item.name}}<font style="float:right;">{{item.sikubu}}</font></ion-card-header>
 		<ion-card-content>
 			<p>間取り<font style="float:right;">{{item.madori}}</font></p>
 			<p>床面積[m2]<font style="float:right;">{{item.yukamenseki}}</font></p>
