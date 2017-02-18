@@ -6,6 +6,7 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ItemFilterPage } from '../pages/item-filter/item-filter';
 
 import { JkkData } from '../providers/jkk-data';
 
@@ -15,7 +16,8 @@ import { JkkData } from '../providers/jkk-data';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ItemFilterPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -26,7 +28,8 @@ import { JkkData } from '../providers/jkk-data';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ItemFilterPage
   ],
   providers: [
 	  { provide: ErrorHandler, useClass: IonicErrorHandler },

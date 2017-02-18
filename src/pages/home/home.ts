@@ -1,5 +1,9 @@
 import { OnInit, Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { ModalController, NavController } from 'ionic-angular';
+
+import { ItemFilterPage } from '../item-filter/item-filter';
+import { ContactPage } from '../contact/contact';
+
 import { JkkData } from './../../providers/jkk-data';
 
 
@@ -9,21 +13,26 @@ import { JkkData } from './../../providers/jkk-data';
 })
 export class HomePage implements OnInit {
 
+  segment = 'all';
+
 	// the array of items found
 	items
 
 	// the update time
 	updated_at
 
-	constructor( public navCtrl: NavController, private jkkData: JkkData) {
+	constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    private jkkData: JkkData
+  ) {
 		console.log("HomePage constructor");
 		// the array of items found
 		this.items = [];
 
-		// the update time
-		this.updated_at = ""
-
-	}
+    // the update time
+    this.updated_at = ""
+  }
 
 	// init
 	ngOnInit() {
@@ -66,4 +75,12 @@ export class HomePage implements OnInit {
 			refresher.complete();
 		}, 2000);
 	}
+
+  updateSchedule() {
+  }
+
+  presentFilter() {
+    let modal = this.modalCtrl.create(ItemFilterPage);
+    modal.present();
+  }
 }
