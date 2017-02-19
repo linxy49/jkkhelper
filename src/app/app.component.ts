@@ -8,11 +8,16 @@ import { TabsPage } from '../pages/tabs/tabs';
 	templateUrl: 'app.html'
 })
 export class MyApp {
+
 	rootPage = TabsPage;
 	constructor(platform: Platform) {
 		platform.ready().then(() => {
 			StatusBar.styleDefault();
 			Splashscreen.hide();
+
+//			if (platform.is('ios')) {
+//	    }
+
 		});
 	}
 }
