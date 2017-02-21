@@ -44,37 +44,11 @@
             {{item.yukamenseki}}
           </p>
         </button>
-
-        <!-- <ion-item-options>
-          <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
-          </button>
-          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
-            Remove
-          </button>
-        </ion-item-options> -->
-
       </ion-item-sliding>
 
     </ion-item-group>
 
   </ion-list>
-
-	<!-- <ion-card>
-		<ion-card-header>Last updated at</ion-card-header>
-		<ion-item>{{updated_at}}</ion-item>
-	</ion-card> -->
-
-	<!-- <ion-card *ngFor="let item of items">
-		<ion-card-header>{{item.name}}<font style="float:right;">{{item.sikubu}}</font></ion-card-header>
-		<ion-card-content>
-			<p>間取り<font style="float:right;">{{item.madori}}</font></p>
-			<p>床面積[m2]<font style="float:right;">{{item.yukamenseki}}</font></p>
-			<p>家賃[円]<font style="float:right;">{{item.yachin}}</font></p>
-			<p>共益費[円]<font style="float:right;">{{item.kyoekihi}}</font></p>
-			<p>募集戸数<font style="float:right;">{{item.kosu}}</font></p>
-		</ion-card-content>
-	</ion-card> -->
 
   <ion-fab bottom right #fab>
     <button ion-fab><ion-icon name="share"></ion-icon></button>

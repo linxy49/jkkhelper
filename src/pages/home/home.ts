@@ -5,81 +5,57 @@ import { ItemFilterPage } from '../item-filter/item-filter';
 
 import { JkkData } from './../../providers/jkk-data';
 
-import * as jQuery from "jquery";
-import * as quickblox from "quickblox";
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage implements OnInit {
-
   segment = 'all';
   excludeTracks: any = [];
+  items;
+  updated_at;
 
-	// the array of items found
-	items
-
-	// the update time
-	updated_at
-
-	constructor(
+  constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     private jkkData: JkkData
   ) {
-		//console.log("HomePage constructor");
-		// the array of items found
-		this.items = [];
-
-    // the update time
+    this.items = [];
     this.updated_at = "";
-
-    console.log(quickblox.init());
-    //quickblox.init(53312, 'PD4TYw95-SjzQBC', 'jaO2aB8xw7PbZJz');
   }
 
-	// init
-	ngOnInit() {
-		//console.log("HomePage ngOnInit start");
-		this.jkkData.getData().subscribe(
-			(response) => {
-				// process the results..
-				// console.log('search results', response.data);
-				this.items = response.data.list
-				this.updated_at = response.data.updated_at
-			}, (error) => {
-				// handle an error condition...
-				console.log("Error Searching: " + error)
-			}, () => {
-				// called when completely done processing
-				console.log("All Good With The Data");
-			}
-		);
-		//console.log("HomePage ngOnInit end");
-	}
+  // init
+  ngOnInit() {
+    // this.jkkData.getData().subscribe(
+    //   (response) => {
+    //     this.items = response.data.list
+    //     this.updated_at = response.data.updated_at
+    //   }, (error) => {
+    //     console.log("Error Searching: " + error)
+    //   }, () => {
+    //     console.log("All Good With The Data");
+    //   }
+    // );
+  }
 
-	doRefresh(refresher) {
-		console.log('Begin async operation', refresher);
-		this.jkkData.getData().subscribe(
-			(response) => {
-				// process the results..
-				console.log('search results', response.data);
-				this.items = response.data.list
-				this.updated_at = response.data.updated_at
-			}, (error) => {
-				// handle an error condition...
-				console.log("Error Searching: " + error)
-			}, () => {
-				// called when completely done processing
-				console.log("All Good With The Data");
-			}
-		);
-		setTimeout(() => {
-			console.log('Async operation has ended');
-			refresher.complete();
-		}, 2000);
-	}
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    this.jkkData.getData().subscribe(
+      (response) => {
+        console.log('search results', response.data);
+        this.items = response.data.list
+        this.updated_at = response.data.updated_at
+      }, (error) => {
+        console.log("Error Searching: " + error)
+      }, () => {
+        console.log("All Good With The Data");
+      }
+    );
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
 
   updateSchedule() {
   }
@@ -92,9 +68,7 @@ export class HomePage implements OnInit {
       console.log(data);
       if (data) {
         this.excludeTracks = data;
-        //this.updateSchedule();
       }
     });
-
   }
 }

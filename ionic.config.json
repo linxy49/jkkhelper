@@ -1,6 +1,10 @@
 {
-  "name": "jkkhelper",
-  "app_id": "",
-  "v2": true,
-  "typescript": true
+	"name": "jkkhelper",
+	"app_id": "",
+	"v2": true,
+	"typescript": true,
+	"proxies": [{
+		"path": "/api",
+		"proxyUrl": "http://45.55.2.139/api/v1"
+	}]
 }

@@ -9,6 +9,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ItemFilterPage } from '../pages/item-filter/item-filter';
 
 import { JkkData } from '../providers/jkk-data';
+import { QuickBlox } from '../providers/quickblox';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { JkkData } from '../providers/jkk-data';
   providers: [
 	  { provide: ErrorHandler, useClass: IonicErrorHandler },
 	  JkkData,
-
+	  QuickBlox
   ]
 })
 export class AppModule {}
