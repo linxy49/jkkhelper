@@ -19,7 +19,7 @@ export class MyApp {
 			StatusBar.styleDefault();
 			Splashscreen.hide();
 			if (platform.is('ios')) {console.log(Device.uuid)}
-			quickblox.init('9999');
+			quickblox.init('1123456789012345');
 		});
 	}
 }
