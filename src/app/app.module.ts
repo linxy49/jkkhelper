@@ -10,6 +10,7 @@ import { ItemFilterPage } from '../pages/item-filter/item-filter';
 
 import { JkkData } from '../providers/jkk-data';
 import { QuickBlox } from '../providers/quickblox';
+import { Notifications } from '../providers/notifications';
 
 @NgModule({
   declarations: [
@@ -33,9 +34,8 @@ import { QuickBlox } from '../providers/quickblox';
     ItemFilterPage
   ],
   providers: [
-	  { provide: ErrorHandler, useClass: IonicErrorHandler },
-	  JkkData,
-	  QuickBlox
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    JkkData, QuickBlox, Notifications
   ]
 })
-export class AppModule {}
+export class AppModule { }

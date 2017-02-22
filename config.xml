@@ -7,6 +7,7 @@
   <access origin="*"/>
   <allow-navigation href="http://ionic.local/*"/>
   <allow-navigation href="http://192.168.2.109:8100"/>
+  <allow-navigation href="http://192.168.1.115:8100"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
@@ -14,9 +15,14 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
   <platform name="android">
+    <preference name="Orientation" value="portrait" />
     <allow-intent href="market:*"/>
+    <!-- <config-file target="AndroidManifest.xml">
+      <uses-permission android:name="android.permission.VIBRATE" />
+    </config-file> -->
   </platform>
   <platform name="ios">
+    <preference name="orientation" value="portrait" />
     <allow-intent href="itms:*"/>
     <allow-intent href="itms-apps:*"/>
   </platform>
