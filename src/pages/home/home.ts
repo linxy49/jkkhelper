@@ -23,46 +23,44 @@ export class HomePage implements OnInit {
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     private jkkData: JkkData,
-	private quickblox: QuickBlox
+	  private quickblox: QuickBlox
   ) {
 
     this.events.subscribe('quickblox:connected', () => {
-		console.log("quickblox:connected");
-		this.connected = true;
+		  this.connected = true;
     });
 
     this.items = [];
     this.updated_at = "";
-	this.connected = false;
+	  this.connected = false;
   }
 
   // init
   ngOnInit() {
-    // this.jkkData.getData().subscribe(
-    //   (response) => {
-    //     this.items = response.data.list
-    //     this.updated_at = response.data.updated_at
-    //   }, (error) => {
-    //     console.log("Error Searching: " + error)
-    //   }, () => {
-    //     console.log("All Good With The Data");
-    //   }
-    // );
+     this.jkkData.getData().subscribe(
+       (response) => {
+         this.items = response.data.list;
+         this.updated_at = response.data.updated_at;
+       }, (error) => {
+         console.log("Error Searching: " + error);
+       }, () => {
+         console.log("All Good With The Data");
+       }
+     );
   }
 
   doRefresh(refresher) {
-	  this.quickblox.sendSystemMessage();
-    // this.jkkData.getData().subscribe(
-    //   (response) => {
-    //     console.log('search results', response.data);
-    //     this.items = response.data.list
-    //     this.updated_at = response.data.updated_at
-    //   }, (error) => {
-    //     console.log("Error Searching: " + error)
-    //   }, () => {
-    //     console.log("All Good With The Data");
-    //   }
-    // );
+     this.jkkData.getData().subscribe(
+       (response) => {
+         console.log('search results', response.data);
+         this.items = response.data.list
+         this.updated_at = response.data.updated_at
+       }, (error) => {
+         console.log("Error Searching: " + error);
+       }, () => {
+         console.log("All Good With The Data");
+       }
+     );
     setTimeout(() => {
       console.log('Async operation has ended');
       refresher.complete();
@@ -70,23 +68,20 @@ export class HomePage implements OnInit {
   }
 
   updateSchedule() {
-	  alert(1);
-	  Vibration.vibrate([3000,1000,3000]);
-	  alert(2);
+	  Vibration.vibrate(3000);
+    this.quickblox.sendSystemMessage();
   }
 
   presentFilter() {
-	  alert(3);
 	  Vibration.vibrate(0);
-	  alert(4);
-    // let modal = this.modalCtrl.create(ItemFilterPage, this.excludeTracks);
-    // modal.present();
-	//
-    // modal.onWillDismiss((data: any[]) => {
-    //   console.log(data);
-    //   if (data) {
-    //     this.excludeTracks = data;
-    //   }
-    // });
+     let modal = this.modalCtrl.create(ItemFilterPage, this.excludeTracks);
+     modal.present();
+
+     modal.onWillDismiss((data: any[]) => {
+       console.log(data);
+       if (data) {
+         this.excludeTracks = data;
+       }
+     });
   }
 }

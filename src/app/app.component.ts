@@ -19,11 +19,7 @@ export class MyApp {
     platform.ready().then(() => {
       StatusBar.styleDefault();
       Splashscreen.hide();
-      if (platform.is('ios') || platform.is('android')) {
-        quickblox.init(Device.uuid, events, notifications);
-      } else {
-        quickblox.init('0123456789012345', events, notifications);
-      }
+      quickblox.init('8D5B835A-D5E6-498E-8036-3285D8435EAF', events, notifications);
     });
 
     events.subscribe('quickblox:connected', () => {

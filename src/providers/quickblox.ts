@@ -19,12 +19,12 @@ export class QuickBlox {
 	  var message = {
 	    body: 'Notification message',
 	    extension: {
-	      yachin: "yachin",
-	      param2: "value2"
+	      yachin: 'yachin',
+	      param2: 'value2'
 	    }
 	  };
 
-	  var opponentId = 24464293;
+	  var opponentId = 24475663;
 	  QB.chat.sendSystemMessage(opponentId, message);
   }
 
@@ -38,7 +38,6 @@ export class QuickBlox {
     this.join(this.auth).then((data) => {
       events.publish('quickblox:connected');
     }, (error) => {
-      console.log(error);
     });
 
 	QB.chat.onSystemMessageListener = function(msgObj) {
