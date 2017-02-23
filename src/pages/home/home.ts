@@ -23,46 +23,50 @@ export class HomePage implements OnInit {
     public events: Events,
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-	private quickblox: QuickBlox,
-	private notifications: Notifications,
+    private quickblox: QuickBlox,
+    private notifications: Notifications,
     private jkkData: JkkData
   ) {
-
-    this.events.subscribe('quickblox:connected', () => {
-		  this.connected = true;
-    });
-
     this.items = [];
     this.updated_at = "";
-	  this.connected = false;
+    this.connected = false;
+
+
+    this.events.subscribe('quickblox:connected', () => {
+      this.connected = true;
+    });
+
+	this.events.subscribe('quickblox:disconnected', () => {
+      this.connected = false;
+    });
   }
 
   // init
   ngOnInit() {
-     this.jkkData.getData().subscribe(
-       (response) => {
-         this.items = response.data.list;
-         this.updated_at = response.data.updated_at;
-       }, (error) => {
-         console.log("Error Searching: " + error);
-       }, () => {
-         console.log("All Good With The Data");
-       }
-     );
+    this.jkkData.getData().subscribe(
+      (response) => {
+        this.items = response.data.list;
+        this.updated_at = response.data.updated_at;
+      }, (error) => {
+        console.log("Error Searching: " + error);
+      }, () => {
+        console.log("All Good With The Data");
+      }
+    );
   }
 
   doRefresh(refresher) {
-     this.jkkData.getData().subscribe(
-       (response) => {
-         console.log('search results', response.data);
-         this.items = response.data.list
-         this.updated_at = response.data.updated_at
-       }, (error) => {
-         console.log("Error Searching: " + error);
-       }, () => {
-         console.log("All Good With The Data");
-       }
-     );
+    this.jkkData.getData().subscribe(
+      (response) => {
+        console.log('search results', response.data);
+        this.items = response.data.list
+        this.updated_at = response.data.updated_at
+      }, (error) => {
+        console.log("Error Searching: " + error);
+      }, () => {
+        console.log("All Good With The Data");
+      }
+    );
     setTimeout(() => {
       console.log('Async operation has ended');
       refresher.complete();
@@ -70,11 +74,11 @@ export class HomePage implements OnInit {
   }
 
   updateSchedule() {
-	  this.quickblox.init('8D5B835A-D5E6-498E-8036-3285D8435EAF', this.events, this.notifications);
+    //this.quickblox.init('8D5B835A-D5E6-498E-8036-3285D8435EAF', this.events, this.notifications);
   }
 
   presentFilter() {
-	this.quickblox.sendSystemMessage();	  
+    this.quickblox.sendSystemMessage();
     //  let modal = this.modalCtrl.create(ItemFilterPage, this.excludeTracks);
     //  modal.present();
     //  modal.onWillDismiss((data: any[]) => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LocalNotifications, Vibration } from 'ionic-native';
+import { LocalNotifications } from 'ionic-native';
 import { AlertController } from 'ionic-angular';
 
 @Injectable()
@@ -8,10 +8,10 @@ export class Notifications {
 
   push(data: any) {
     LocalNotifications.schedule({
+      id: Math.floor(Math.random() * (10000 )) + 1,
       title: data.title,
-      text: data.text,
+      text: data.text
     });
-	Vibration.vibrate([3000,1000,3000]);
   }
 
   show(data: any) {

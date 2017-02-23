@@ -33,7 +33,6 @@ export class QuickBlox {
   }
 
   init(id: string, events: any, notifications: any) {
-	alert(id);
     if (id) {
       this.auth.login = id;
       this.auth.password = id;
