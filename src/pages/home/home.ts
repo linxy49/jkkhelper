@@ -2,10 +2,11 @@ import { OnInit, Component } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { ItemFilterPage } from '../item-filter/item-filter';
-import { Vibration } from 'ionic-native';
-
-import { JkkData } from './../../providers/jkk-data';
+import { Device, Vibration } from 'ionic-native';
+import { Notifications } from './../../providers/notifications';
 import { QuickBlox } from './../../providers/quickblox';
+import { JkkData } from './../../providers/jkk-data';
+
 
 @Component({
   selector: 'page-home',
@@ -22,8 +23,9 @@ export class HomePage implements OnInit {
     public events: Events,
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    private jkkData: JkkData,
-	  private quickblox: QuickBlox
+	private quickblox: QuickBlox,
+	private notifications: Notifications,
+    private jkkData: JkkData
   ) {
 
     this.events.subscribe('quickblox:connected', () => {
@@ -68,20 +70,18 @@ export class HomePage implements OnInit {
   }
 
   updateSchedule() {
-	  Vibration.vibrate(3000);
-    this.quickblox.sendSystemMessage();
+	  this.quickblox.init('8D5B835A-D5E6-498E-8036-3285D8435EAF', this.events, this.notifications);
   }
 
   presentFilter() {
-	  Vibration.vibrate(0);
-     let modal = this.modalCtrl.create(ItemFilterPage, this.excludeTracks);
-     modal.present();
-
-     modal.onWillDismiss((data: any[]) => {
-       console.log(data);
-       if (data) {
-         this.excludeTracks = data;
-       }
-     });
+	this.quickblox.sendSystemMessage();	  
+    //  let modal = this.modalCtrl.create(ItemFilterPage, this.excludeTracks);
+    //  modal.present();
+    //  modal.onWillDismiss((data: any[]) => {
+    //    console.log(data);
+    //    if (data) {
+    //      this.excludeTracks = data;
+    //    }
+    //  });
   }
 }

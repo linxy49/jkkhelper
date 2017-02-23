@@ -29,6 +29,7 @@ export class QuickBlox {
   }
 
   init(id: string, events: any, notifications: any) {
+	alert(id);
     if (id) {
       this.auth.login = id;
       this.auth.password = id;
@@ -36,8 +37,10 @@ export class QuickBlox {
 
     QB.init(54006, '2PGBgPZUjCv-DTJ', 'yd5hdAzgKDrusBb');
     this.join(this.auth).then((data) => {
+      alert('quickblox:connected');
       events.publish('quickblox:connected');
     }, (error) => {
+      alert('quickblox:connected');
     });
 
 	QB.chat.onSystemMessageListener = function(msgObj) {
