@@ -16,16 +16,20 @@ export class QuickBlox {
   }
 
   sendSystemMessage() {
-	  var message = {
-	    body: 'Notification message',
-	    extension: {
-	      yachin: 'yachin',
-	      param2: 'value2'
-	    }
-	  };
+	  if (this.connectStatus) {
+		  var message = {
+		    body: new Date().toISOString(),
+		    extension: {
+		      yachin: 'yachin',
+		      param2: 'value2'
+		    }
+		  };
 
-	  var opponentId = 24475663;
-	  QB.chat.sendSystemMessage(opponentId, message);
+		  var opponentId = 24475663;
+		  QB.chat.sendSystemMessage(opponentId, message);
+	  } else {
+		  alert('please login ');
+	  }
   }
 
   init(id: string, events: any, notifications: any) {
@@ -37,10 +41,10 @@ export class QuickBlox {
 
     QB.init(54006, '2PGBgPZUjCv-DTJ', 'yd5hdAzgKDrusBb');
     this.join(this.auth).then((data) => {
-      alert('quickblox:connected');
+      alert('quickblox:connected.' + new Date().toISOString());
       events.publish('quickblox:connected');
     }, (error) => {
-      alert('quickblox:connected');
+      alert('error.' + new Date().toISOString());
     });
 
 	QB.chat.onSystemMessageListener = function(msgObj) {
