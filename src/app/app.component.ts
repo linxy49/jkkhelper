@@ -19,9 +19,9 @@ export class MyApp {
     platform.ready().then(() => {
       StatusBar.styleDefault();
       Splashscreen.hide();
-	  if (this.platform.is('ios') || this.platform.is('android')) {
-	  	//this.quickblox.setUuid(Device.uuid);
-	  }
+  	  if (this.platform.is('ios') || this.platform.is('android')) {
+  	    //this.quickblox.setUuid(Device.uuid);
+  	  }
     });
 
     events.subscribe('quickblox:connected', () => {

@@ -35,7 +35,8 @@ export class QuickBlox {
 		    }
 		  };
 
-      QB.chat.sendSystemMessage(24502458, message);
+      QB.chat.sendSystemMessage(24475663, message);
+      QB.chat.sendSystemMessage(24510855, message);
 	  } else {
 		  alert('please login ');
 	  }
@@ -47,7 +48,7 @@ export class QuickBlox {
 	}
     this.auth.login = this.uuid;
     this.auth.password = this.uuid;
-	  alert('init.[' + JSON.stringify(this.auth) + ']' + new Date().toISOString());
+	  //alert('init.[' + JSON.stringify(this.auth) + ']' + new Date().toISOString());
     QB.init(54006, '2PGBgPZUjCv-DTJ', 'yd5hdAzgKDrusBb');
     this.join(this.auth).then((data) => {
       //alert('quickblox:connected.[' + JSON.stringify(data) + ']' + new Date().toLocaleTimeString());

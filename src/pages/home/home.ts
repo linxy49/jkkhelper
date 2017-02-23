@@ -1,6 +1,7 @@
 import { OnInit, Component } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 import { Events } from 'ionic-angular';
+import { Device } from 'ionic-native';
 import { ItemFilterPage } from '../item-filter/item-filter';
 import { Notifications } from './../../providers/notifications';
 import { QuickBlox } from './../../providers/quickblox';
@@ -41,8 +42,11 @@ export class HomePage implements OnInit {
 
   connect() {
     if (!this.connected) {
-      this.quickblox.init(this.events, this.notifications);
-	}
+      if (Device.uuid) {
+        this.quickblox.setUuid(Device.uuid);
+        this.quickblox.init(this.events, this.notifications);
+      }
+	  }
   }
 
   // init
@@ -79,7 +83,7 @@ export class HomePage implements OnInit {
   }
 
   updateSchedule() {
-    this.quickblox.sendSystemMessage();
+    //this.quickblox.sendSystemMessage();
   }
 
   presentFilter() {

@@ -8,7 +8,7 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class JkkData {
-  private API = "/api"
+  private API = "http://45.55.2.139/api/v1"
   data: any;
   constructor(private http: Http) {}
 
