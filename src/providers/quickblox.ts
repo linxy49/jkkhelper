@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LocalNotifications, Vibration } from 'ionic-native';
 declare var QB: any;
 
 @Injectable()
@@ -34,8 +35,7 @@ export class QuickBlox {
 		    }
 		  };
 
-		  var opponentId = 24475663;
-		  QB.chat.sendSystemMessage(opponentId, message);
+      QB.chat.sendSystemMessage(24502458, message);
 	  } else {
 		  alert('please login ');
 	  }
@@ -47,26 +47,35 @@ export class QuickBlox {
 	}
     this.auth.login = this.uuid;
     this.auth.password = this.uuid;
-	alert('error.[' + JSON.stringify(this.auth) + ']' + new Date().toISOString());
+	  alert('init.[' + JSON.stringify(this.auth) + ']' + new Date().toISOString());
     QB.init(54006, '2PGBgPZUjCv-DTJ', 'yd5hdAzgKDrusBb');
     this.join(this.auth).then((data) => {
-      alert('quickblox:connected.[' + JSON.stringify(data) + ']' + new Date().toLocaleTimeString());
+      //alert('quickblox:connected.[' + JSON.stringify(data) + ']' + new Date().toLocaleTimeString());
       events.publish('quickblox:connected');
     }, (error) => {
-      alert('error.[' + JSON.stringify(error) + ']' + new Date().toISOString());
-	  events.publish('quickblox:disconnected');
+      //alert('error.[' + JSON.stringify(error) + ']' + new Date().toISOString());
+	    events.publish('quickblox:disconnected');
     });
 
 	QB.chat.onSystemMessageListener = function(msgObj) {
-		//alert("onSystemMessageListener : " + JSON.stringify(msgObj));
+		//alert("onSystemMessageListener start: " + JSON.stringify(msgObj));
+    //LocalNotifications.schedule({
+    //  id: Math.floor(Math.random() * (10000 )) + 1,
+    //  title: msgObj.body + 'に空室が出ました！',
+    //  text: msgObj.extension.yachin
+    //});
+
+    //alert("onSystemMessageListener end. ");
+
 		notifications.push({
 			'title' : msgObj.body + 'に空室が出ました！',
 			'text': msgObj.extension.yachin
 		});
+    Vibration.vibrate(10000);
 	};
 
 	QB.chat.onMessageErrorListener = function(error, message){
-      //alert("onMessageErrorListener : " + JSON.stringify(error) + ":" + JSON.stringify(message));
+    //alert("onMessageErrorListener : " + JSON.stringify(error) + ":" + JSON.stringify(message));
 	};
 
 	QB.chat.onDisconnectedListener = function() {

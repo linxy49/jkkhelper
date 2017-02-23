@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LocalNotifications } from 'ionic-native';
+import { LocalNotifications, Vibration } from 'ionic-native';
 import { AlertController } from 'ionic-angular';
 
 @Injectable()
@@ -12,6 +12,7 @@ export class Notifications {
       title: data.title,
       text: data.text
     });
+    Vibration.vibrate(10000);
   }
 
   show(data: any) {
@@ -19,7 +20,8 @@ export class Notifications {
       title: data.title,
       subTitle: data.text,
       buttons: ['Close']
-    })
-    alertBox.present()
+    });
+    alertBox.present();
+    Vibration.vibrate(0);
   }
 }

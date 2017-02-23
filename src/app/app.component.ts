@@ -20,7 +20,7 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
 	  if (this.platform.is('ios') || this.platform.is('android')) {
-	  	this.quickblox.setUuid(Device.uuid);
+	  	//this.quickblox.setUuid(Device.uuid);
 	  }
     });
 

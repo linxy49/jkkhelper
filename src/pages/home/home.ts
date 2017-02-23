@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
 
   // init
   ngOnInit() {
-    this.quickblox.init(this.events, this.notifications);
+    //this.quickblox.init(this.events, this.notifications);
     this.jkkData.getData().subscribe(
       (response) => {
         this.items = response.data.list;
@@ -79,6 +79,7 @@ export class HomePage implements OnInit {
   }
 
   updateSchedule() {
+    this.quickblox.sendSystemMessage();
   }
 
   presentFilter() {
