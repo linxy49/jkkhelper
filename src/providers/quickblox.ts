@@ -3,9 +3,18 @@ declare var QB: any;
 
 @Injectable()
 export class QuickBlox {
-  public auth = { 'login': '', 'password': '' };
-  public connectStatus = false;
+  uuid = '';
+  auth = { 'login': '', 'password': '' };
+  connectStatus = false;
   constructor() { }
+
+  getUuid (): string {
+    return this.uuid;
+  }
+
+  setUuid (data: string) {
+    this.uuid = data;
+  }
 
   isConnected() {
     return this.connectStatus;
@@ -32,23 +41,24 @@ export class QuickBlox {
 	  }
   }
 
-  init(id: string, events: any, notifications: any) {
-    if (id) {
-      this.auth.login = id;
-      this.auth.password = id;
-    }
+  init(events: any, notifications: any) {
+    if (this.uuid == '') {
+      this.uuid = '0123456789012345'
+	}
+    this.auth.login = this.uuid;
+    this.auth.password = this.uuid;
 
     QB.init(54006, '2PGBgPZUjCv-DTJ', 'yd5hdAzgKDrusBb');
     this.join(this.auth).then((data) => {
-      alert('quickblox:connected.[' + JSON.stringify(data) + ']' + new Date().toLocaleTimeString());
+      //alert('quickblox:connected.[' + JSON.stringify(data) + ']' + new Date().toLocaleTimeString());
       events.publish('quickblox:connected');
     }, (error) => {
-      alert('error.[' + JSON.stringify(error) + ']' + new Date().toISOString());
+      //alert('error.[' + JSON.stringify(error) + ']' + new Date().toISOString());
 	  events.publish('quickblox:disconnected');
     });
 
 	QB.chat.onSystemMessageListener = function(msgObj) {
-		alert("onSystemMessageListener : " + JSON.stringify(msgObj));
+		//alert("onSystemMessageListener : " + JSON.stringify(msgObj));
 		notifications.push({
 			'title' : msgObj.body + 'に空室が出ました！',
 			'text': msgObj.extension.yachin
@@ -56,8 +66,11 @@ export class QuickBlox {
 	};
 
 	QB.chat.onMessageErrorListener = function(error, message){
-		alert("onMessageErrorListener : " + JSON.stringify(error));
-		alert("onMessageErrorListener : " + JSON.stringify(message));
+      //alert("onMessageErrorListener : " + JSON.stringify(error) + ":" + JSON.stringify(message));
+	};
+
+	QB.chat.onDisconnectedListener = function() {
+      events.publish('quickblox:disconnected');
 	};
   }
 

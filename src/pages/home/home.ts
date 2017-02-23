@@ -2,7 +2,6 @@ import { OnInit, Component } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { ItemFilterPage } from '../item-filter/item-filter';
-import { Device, Vibration } from 'ionic-native';
 import { Notifications } from './../../providers/notifications';
 import { QuickBlox } from './../../providers/quickblox';
 import { JkkData } from './../../providers/jkk-data';
@@ -31,7 +30,6 @@ export class HomePage implements OnInit {
     this.updated_at = "";
     this.connected = false;
 
-
     this.events.subscribe('quickblox:connected', () => {
       this.connected = true;
     });
@@ -39,6 +37,10 @@ export class HomePage implements OnInit {
 	this.events.subscribe('quickblox:disconnected', () => {
       this.connected = false;
     });
+  }
+
+  connect() {
+    this.quickblox.init(this.events, this.notifications);
   }
 
   // init
@@ -74,7 +76,6 @@ export class HomePage implements OnInit {
   }
 
   updateSchedule() {
-    //this.quickblox.init('8D5B835A-D5E6-498E-8036-3285D8435EAF', this.events, this.notifications);
   }
 
   presentFilter() {

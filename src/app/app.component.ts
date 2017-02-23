@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Events, Platform } from 'ionic-angular';
-import { LocalNotifications, Splashscreen, StatusBar } from 'ionic-native';
+import { Device, LocalNotifications, Splashscreen, StatusBar } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { QuickBlox } from '../providers/quickblox';
 import { Notifications } from '../providers/notifications';
@@ -19,7 +19,9 @@ export class MyApp {
     platform.ready().then(() => {
       StatusBar.styleDefault();
       Splashscreen.hide();
-      this.quickblox.init('8D5B835A-D5E6-498E-8036-3285D8435EAF', this.events, this.notifications);
+	  if (this.platform.is('ios') || this.platform.is('android')) {
+	  	this.quickblox.setUuid(Device.uuid);
+	  }
     });
 
     events.subscribe('quickblox:connected', () => {

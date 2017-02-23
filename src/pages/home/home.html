@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar no-border-bottom>
 	  <button ion-button menuToggle>
-        <ion-icon name="ios-notifications-off-outline" *ngIf="!connected"></ion-icon>
+        <ion-icon name="ios-notifications-off-outline" *ngIf="!connected" (click)="connect()"></ion-icon>
 		<ion-icon name="ios-notifications-outline" *ngIf="connected"></ion-icon>
       </button>
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
