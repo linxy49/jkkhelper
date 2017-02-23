@@ -40,11 +40,14 @@ export class HomePage implements OnInit {
   }
 
   connect() {
-    this.quickblox.init(this.events, this.notifications);
+    if (!this.connected) {
+      this.quickblox.init(this.events, this.notifications);
+	}
   }
 
   // init
   ngOnInit() {
+    this.quickblox.init(this.events, this.notifications);
     this.jkkData.getData().subscribe(
       (response) => {
         this.items = response.data.list;
@@ -79,14 +82,14 @@ export class HomePage implements OnInit {
   }
 
   presentFilter() {
-    this.quickblox.sendSystemMessage();
-    //  let modal = this.modalCtrl.create(ItemFilterPage, this.excludeTracks);
-    //  modal.present();
-    //  modal.onWillDismiss((data: any[]) => {
-    //    console.log(data);
-    //    if (data) {
-    //      this.excludeTracks = data;
-    //    }
-    //  });
+    // this.quickblox.sendSystemMessage();
+     let modal = this.modalCtrl.create(ItemFilterPage, this.excludeTracks);
+     modal.present();
+     modal.onWillDismiss((data: any[]) => {
+       console.log(data);
+       if (data) {
+         this.excludeTracks = data;
+       }
+     });
   }
 }

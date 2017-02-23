@@ -1,9 +1,10 @@
 <ion-header>
   <ion-navbar no-border-bottom>
-	  <button ion-button menuToggle>
-        <ion-icon name="ios-notifications-off-outline" *ngIf="!connected" (click)="connect()"></ion-icon>
-		<ion-icon name="ios-notifications-outline" *ngIf="connected"></ion-icon>
-      </button>
+    <button ion-button menuToggle (click)="connect()">
+      <ion-icon name="ios-notifications-off-outline" *ngIf="!connected"></ion-icon>
+      <ion-icon name="ios-notifications-outline" *ngIf="connected"></ion-icon>
+    </button>
+
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
       <ion-segment-button value="recent">最近の更新</ion-segment-button>
       <ion-segment-button value="availability">空室物件</ion-segment-button>
