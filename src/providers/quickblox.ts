@@ -11,14 +11,14 @@ export class QuickBlox {
     return this.connectStatus;
   }
 
-  setConnectStatus() {
-    this.connectStatus = true;
+  setConnectStatus(data) {
+    this.connectStatus = data;
   }
 
   sendSystemMessage() {
 	  if (this.connectStatus) {
 		  var message = {
-		    body: new Date().toISOString(),
+		    body: new Date().toLocaleTimeString(),
 		    extension: {
 		      yachin: 'yachin',
 		      param2: 'value2'
@@ -41,17 +41,24 @@ export class QuickBlox {
 
     QB.init(54006, '2PGBgPZUjCv-DTJ', 'yd5hdAzgKDrusBb');
     this.join(this.auth).then((data) => {
-      alert('quickblox:connected.' + new Date().toISOString());
+      alert('quickblox:connected.[' + JSON.stringify(data) + ']' + new Date().toLocaleTimeString());
       events.publish('quickblox:connected');
     }, (error) => {
-      alert('error.' + new Date().toISOString());
+      alert('error.[' + JSON.stringify(error) + ']' + new Date().toISOString());
+	  events.publish('quickblox:disconnected');
     });
 
 	QB.chat.onSystemMessageListener = function(msgObj) {
+		alert("onSystemMessageListener : " + JSON.stringify(msgObj));
 		notifications.push({
 			'title' : msgObj.body + 'に空室が出ました！',
 			'text': msgObj.extension.yachin
 		});
+	};
+
+	QB.chat.onMessageErrorListener = function(error, message){
+		alert("onMessageErrorListener : " + JSON.stringify(error));
+		alert("onMessageErrorListener : " + JSON.stringify(message));
 	};
   }
 

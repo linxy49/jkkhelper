@@ -23,7 +23,11 @@ export class MyApp {
     });
 
     events.subscribe('quickblox:connected', () => {
-      this.quickblox.setConnectStatus();
+      this.quickblox.setConnectStatus(true);
+    });
+
+	events.subscribe('quickblox:disconnected', () => {
+      this.quickblox.setConnectStatus(false);
     });
 
     LocalNotifications.on("click", (notification, state) => {
